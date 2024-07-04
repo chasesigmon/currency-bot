@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  server:
+    container_name: currency-pairs-server
+    build: .
+    ports:
+      - '7000:7000'
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+  db:
+    container_name: currency-pairs-db
+    image: 'postgres'
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: 'uphold'
+      POSTGRES_USER: 'postgres'
+    volumes:
+      - currency_pairs_data:/var/lib/postgresql/data
+
+volumes:
+  currency_pairs_data:
